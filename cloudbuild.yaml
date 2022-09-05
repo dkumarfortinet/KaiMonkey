@@ -2,6 +2,12 @@ steps:
 # Run FortiDevSec SAST Scanner, once the build step is done.  
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: bash
+  env: 
+  - TRIGGER_NAME=$TRIGGER_NAME
+  - COMMIT_SHA=$COMMIT_SHA
+  - REVISION_ID=$REVISION_ID
+  - REPO_NAME=$REPO_NAME
+  - BRANCH_NAME=$BRANCH_NAME
   args: ['-c','docker run --rm --mount type=bind,source=$(pwd),target=/scan registry.fortidevsec.forticloud.com/fdevsec_sast:latest env']
   
 # Run FortiDevSec DAST Scanner, once the deploy step is done.  

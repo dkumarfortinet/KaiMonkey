@@ -1,4 +1,7 @@
 steps:
+- name: 'ubuntu'
+  args: ['printenv']
+  
 # Run FortiDevSec SAST Scanner, once the build step is done.  
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: bash

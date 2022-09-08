@@ -6,12 +6,7 @@ steps:
 # Run FortiDevSec SAST Scanner, once the build step is done.  
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: bash
-  env: 
-  - TRIGGER_NAME=$TRIGGER_NAME
-  - REVISION_ID=$REVISION_ID
-  - REPO_NAME=$REPO_NAME
-  args: ['-c','docker run --network=cloudbuild --rm -e BRANCH_NAME=$BRANCH_NAME --mount type=bind,source=$(pwd),target=/scan registry.fortidevsec.forticloud.com/fdevsec_sast:latest env']
-  
+  args: ['-c','docker run --network=cloudbuild --rm -e TRIGGER_NAME=$TRIGGER_NAME -e COMMIT_SHA=$COMMIT_SHA -e BRANCH_NAME=$BRANCH_NAME TAG_NAME=$TAG_NAME--mount type=bind,source=$(pwd),target=/scan registry.fortidevsec.forticloud.com/fdevsec_sast:latest env']
 # Run FortiDevSec DAST Scanner, once the deploy step is done.  
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: bash

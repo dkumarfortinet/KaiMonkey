@@ -1,11 +1,11 @@
 steps:
 - name: 'ubuntu'
-  args: ['printenv']
+  args: ['printenv'] 
   
 # Run FortiDevSec SAST Scanner, once the build step is done.  
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: bash
-  args: ['-c','docker run  --rm --network=cloudbuild -e TRIGGER_BUILD_CONFIG_PATH=$TRIGGER_BUILD_CONFIG_PATH -e TRIGGER_NAME=$TRIGGER_NAME -e COMMIT_SHA=$COMMIT_SHA -e BRANCH_NAME=$BRANCH_NAME -e TAG_NAME=$TAG_NAME --mount type=bind,source=$(pwd),target=/scan registry.fortidevsec.forticloud.com/fdevsec_sast:latest env']
+  args: ['-c','docker run  --rm --network=cloudbuild -e REPO_NAME=$REPO_NAME -e TRIGGER_BUILD_CONFIG_PATH=$TRIGGER_BUILD_CONFIG_PATH -e TRIGGER_NAME=$TRIGGER_NAME -e SHORT_SHA=$SHORT_SHA -e REVISION_ID=$REVISION_ID -e BUILD_ID=$BUILD_ID -e PROJECT_NUMBER=$PROJECT_NUMBER -e PROJECT_ID=$PROJECT_ID -e LOCATION=$LOCATION -e COMMIT_SHA=$COMMIT_SHA -e BRANCH_NAME=$BRANCH_NAME -e TAG_NAME=$TAG_NAME --mount type=bind,source=$(pwd),target=/scan registry.fortidevsec.forticloud.com/fdevsec_sast:latest env']
 # Run FortiDevSec DAST Scanner, once the deploy step is don
 - name: 'gcr.io/cloud-builders/docker'
   args: ['-c','printenv']
